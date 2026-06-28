@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.1"
+  async_result:
+    dependency: "direct main"
+    description:
+      name: async_result
+      sha256: "95cc19c449a3f16f995020c234a7a440555c41a373f99300b4e28e59cd0caf0f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -102,6 +110,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_command_pattern:
+    dependency: "direct main"
+    description:
+      name: flutter_command_pattern
+      sha256: "9b8296f252cb37f0bd3d82e45d133a4560da6d6c91de403d54d44e406097b826"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -235,6 +251,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.5.0"
+  result_dart:
+    dependency: "direct main"
+    description:
+      name: result_dart
+      sha256: "80096f0928e276c024e53cf1bb2aaffd5a94623dac8fdfa5cb3529e82b51eb3c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,10 +1,22 @@
-import 'package:firebase_notify_app/domain/enums/quota_type.dart';
-import 'package:firebase_notify_app/domain/models/alert_entity.dart';
+import 'package:firebase_notify_app/ui/warning/warning_viewmodel.dart';
 import 'package:firebase_notify_app/ui/warning/widgets/card_container.dart';
 import 'package:flutter/material.dart';
 
-class Warning extends StatelessWidget {
-  const Warning({super.key});
+class Warning extends StatefulWidget {
+  const Warning({super.key, required this.vm});
+
+  final WarningViewmodel vm;
+
+  @override
+  State<StatefulWidget> createState() => _WarningState();
+}
+
+class _WarningState extends State<Warning> {
+  @override
+  void initState() {
+    super.initState();
+    widget.vm.loadWarnings.execute();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,36 +25,31 @@ class Warning extends StatelessWidget {
         backgroundColor: Colors.blue.shade400,
         title: Text('Alertas'),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(8.0),
-        children: <Widget>[
-          CardContainer(
-            alertEntity: AlertEntity(
-              id: 1,
-              message: "Uma mensagem de teste",
-              quota: QuotaType.minor,
-              timestamp: DateTime.now(),
-            ),
-          ),
-          Container(padding: EdgeInsets.all(3.0)),
-          CardContainer(
-            alertEntity: AlertEntity(
-              id: 2,
-              message: "Uma teste",
-              quota: QuotaType.major,
-              timestamp: DateTime.now(),
-            ),
-          ),
-          Container(padding: EdgeInsets.all(3.0)),
-          CardContainer(
-            alertEntity: AlertEntity(
-              id: 3,
-              message: "Um teste de emnsagem",
-              quota: QuotaType.moderate,
-              timestamp: DateTime.now(),
-            ),
-          ),
-        ],
+      body: ListenableBuilder(
+        listenable: widget.vm,
+        builder: ((context, child) {
+          if (widget.vm.loadWarnings.isRunning) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (widget.vm.loadWarnings.hasError) {
+            return Center(child: Text('Algo deu errado'));
+          }
+
+          return ListView.builder(
+            padding: EdgeInsets.all(8.0),
+            itemCount: widget.vm.warnings.length,
+            itemBuilder: (context, index) {
+              final warning = widget.vm.warnings[index];
+              return Column(
+                children: [
+                  CardContainer(warningEntity: warning),
+                  Container(padding: EdgeInsets.all(3.0)),
+                ],
+              );
+            },
+          );
+        }),
       ),
     );
   }

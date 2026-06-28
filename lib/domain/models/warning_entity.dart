@@ -1,13 +1,13 @@
 import 'package:firebase_notify_app/domain/enums/quota_type.dart';
 import 'package:intl/intl.dart';
 
-class AlertEntity {
+class WarningEntity {
   final int id;
   final String message;
   final DateTime timestamp;
   final QuotaType quota;
 
-  AlertEntity({
+  const WarningEntity({
     required this.id,
     required this.message,
     required this.quota,

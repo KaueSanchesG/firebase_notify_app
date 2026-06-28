@@ -1,10 +1,10 @@
-import 'package:firebase_notify_app/domain/models/alert_entity.dart';
+import 'package:firebase_notify_app/domain/models/warning_entity.dart';
 import 'package:flutter/material.dart';
 
 class CardContainer extends StatelessWidget {
-  const CardContainer({super.key, required this.alertEntity});
+  const CardContainer({super.key, required this.warningEntity});
 
-  final AlertEntity alertEntity;
+  final WarningEntity warningEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +14,21 @@ class CardContainer extends StatelessWidget {
         mainAxisSize: .min,
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.flood_outlined, color: alertEntity.quota.color),
+            leading: Icon(
+              Icons.flood_outlined,
+              color: warningEntity.quota.color,
+            ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Alerta!!', style: TextStyle(color: Colors.red)),
                 Text(
-                  alertEntity.formattedTimestamp,
+                  warningEntity.formattedTimestamp,
                   style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
-            subtitle: Text(alertEntity.message),
+            subtitle: Text(warningEntity.message),
           ),
         ],
       ),
