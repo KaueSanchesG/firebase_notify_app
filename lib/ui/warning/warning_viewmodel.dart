@@ -7,7 +7,7 @@ class WarningViewmodel extends ChangeNotifier {
   final WarningRepository _repository;
 
   late final Command loadWarnings;
-  late List<WarningEntity> warnings;
+  List<WarningEntity> warnings = [];
 
   WarningViewmodel(this._repository) {
     loadWarnings = Command(() async {

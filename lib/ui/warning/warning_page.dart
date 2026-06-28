@@ -1,11 +1,12 @@
+import 'package:firebase_notify_app/config/injection.dart';
 import 'package:firebase_notify_app/ui/warning/warning_viewmodel.dart';
 import 'package:firebase_notify_app/ui/warning/widgets/card_container.dart';
 import 'package:flutter/material.dart';
 
 class Warning extends StatefulWidget {
-  const Warning({super.key, required this.vm});
+  Warning({super.key});
 
-  final WarningViewmodel vm;
+  final vm = getIt<WarningViewmodel>();
 
   @override
   State<StatefulWidget> createState() => _WarningState();
@@ -44,7 +45,8 @@ class _WarningState extends State<Warning> {
               return Column(
                 children: [
                   CardContainer(warningEntity: warning),
-                  Container(padding: EdgeInsets.all(3.0)),
+                  //Container(padding: EdgeInsets.all(3.0)),
+                  SizedBox(height: 5.0),
                 ],
               );
             },

@@ -1,9 +1,6 @@
-import 'package:firebase_notify_app/data/repositories/warning/warning_repository.dart';
-import 'package:firebase_notify_app/data/services/local/local_data.dart';
 import 'package:firebase_notify_app/ui/configuration/configuration_page.dart';
 import 'package:firebase_notify_app/ui/warning/warning_page.dart';
 import 'package:firebase_notify_app/ui/map/map_page.dart';
-import 'package:firebase_notify_app/ui/warning/warning_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -22,11 +19,7 @@ class Home extends StatelessWidget {
           ],
         ),
         body: TabBarView(
-          children: [
-            Warning(vm: WarningViewmodel(WarningRepository(LocalData()))),
-            const Map(),
-            const Configuration(),
-          ],
+          children: [Warning(), const Map(), const Configuration()],
         ),
       ),
     );
