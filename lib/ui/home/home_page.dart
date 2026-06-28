@@ -1,3 +1,6 @@
+import 'package:firebase_notify_app/ui/configuration/configuration_page.dart';
+import 'package:firebase_notify_app/ui/warning/warning_page.dart';
+import 'package:firebase_notify_app/ui/map/map_page.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -8,24 +11,14 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueAccent.shade400,
-          title: const Text('Monitoramento de enchentes'),
-        ),
         bottomNavigationBar: const TabBar(
           tabs: [
-            Tab(icon: Icon(Icons.warning_amber)),
-            Tab(icon: Icon(Icons.map_outlined)),
-            Tab(icon: Icon(Icons.settings)),
+            Tab(icon: Icon(Icons.warning_amber), text: 'Alertas'),
+            Tab(icon: Icon(Icons.map_outlined), text: 'Mapa'),
+            Tab(icon: Icon(Icons.settings), text: 'Configurações'),
           ],
         ),
-        body: const TabBarView(
-          children: [
-            Placeholder(),
-            Text('Mapa em construção'),
-            Text('Configuração em construção'),
-          ],
-        ),
+        body: const TabBarView(children: [Warning(), Map(), Configuration()]),
       ),
     );
   }
