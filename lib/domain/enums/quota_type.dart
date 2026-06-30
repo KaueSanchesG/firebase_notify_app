@@ -10,4 +10,8 @@ enum QuotaType {
   final Color color;
 
   const QuotaType(this.key, this.label, this.color);
+
+  static QuotaType fromJson(String value) {
+    return QuotaType.values.firstWhere((e) => e.key == value);
+  }
 }

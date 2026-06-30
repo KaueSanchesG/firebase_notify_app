@@ -2,7 +2,7 @@ import 'package:firebase_notify_app/domain/enums/quota_type.dart';
 import 'package:firebase_notify_app/domain/models/warning_entity.dart';
 
 class LocalData {
-  Future<List<WarningEntity>> getAlerts() async {
+  Future<List<WarningEntity>> getWarnings() async {
     return [
       WarningEntity(
         id: 1,

@@ -19,4 +19,13 @@ class WarningEntity {
 
     return formatter.format(timestamp);
   }
+
+  factory WarningEntity.fromJson(Map<String, dynamic> json) {
+    return WarningEntity(
+      id: json['id'],
+      message: json['message'],
+      quota: QuotaType.fromJson(json['quota']),
+      timestamp: DateTime.parse(json['timestamp']),
+    );
+  }
 }

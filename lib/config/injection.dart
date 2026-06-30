@@ -1,4 +1,5 @@
 import 'package:firebase_notify_app/data/repositories/warning/warning_repository.dart';
+import 'package:firebase_notify_app/data/services/api/client_api.dart';
 import 'package:firebase_notify_app/data/services/local/local_data.dart';
 import 'package:firebase_notify_app/ui/warning/warning_viewmodel.dart';
 import 'package:get_it/get_it.dart';
@@ -13,9 +14,10 @@ Future<void> setupLocator() async {
   });
 
   getIt.registerSingleton<LocalData>(LocalData());
+  getIt.registerSingleton<ClientApi>(ClientApi());
 
   getIt.registerSingleton<WarningRepository>(
-    WarningRepository(getIt<LocalData>()),
+    WarningRepository(getIt<ClientApi>()),
   );
 
   getIt.registerSingleton<WarningViewmodel>(
