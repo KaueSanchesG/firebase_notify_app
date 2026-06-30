@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
           ],
         ),
         body: TabBarView(
-          children: [Warning(), const Map(), const Configuration()],
+          children: [Warning(), MapPage(), const Configuration()],
         ),
       ),
     );
