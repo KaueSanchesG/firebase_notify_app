@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_notify_app/config/injection.dart';
 import 'package:firebase_notify_app/firebase_options.dart';
 import 'package:firebase_notify_app/ui/home/home_page.dart';
@@ -10,14 +9,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  await FirebaseMessaging.instance.subscribeToTopic('Centro');
 
   // Dependency Injection
   setupLocator();
@@ -31,6 +22,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'MonI', home: Home());
+    return MaterialApp(title: 'OraKlast', home: Home());
   }
 }
