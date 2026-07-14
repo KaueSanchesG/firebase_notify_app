@@ -18,7 +18,7 @@ class PointForecastsData {
   factory PointForecastsData.fromJson(Map<String, dynamic> json) {
     return PointForecastsData(
       pointId: json['pointId'],
-      coordinates: LatLng(json['latitude'], json['longitude']),
+      coordinates: LatLng(json['lat'], json['lng']),
       historyData: HistoryData.fromJson(json['historyData']),
       forecasts:
           (json['forecasts'] as List?)

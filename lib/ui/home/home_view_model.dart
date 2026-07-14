@@ -23,20 +23,27 @@ class HomeViewModel extends ChangeNotifier {
   List<PointForecastsData> get currentPoints {
     return _pointsCached.map((point) {
       return point.copyWith(
-        forecasts: point.forecasts
-            .where((f) => f.date == _selectedDate)
-            .toList(),
+        forecasts: point.forecasts.where((f) {
+          return f.date.year == _selectedDate.year &&
+              f.date.month == _selectedDate.month &&
+              f.date.day == _selectedDate.day;
+        }).toList(),
       );
     }).toList();
   }
 
   void _subListener() {
-    _subscription = _repository.subPoints().listen((receivedData) {
-      _pointsCached = receivedData;
-      isLoading = false;
-
-      notifyListeners();
-    });
+    _subscription = _repository.subPoints().listen(
+      (receivedData) {
+        _pointsCached = receivedData;
+        isLoading = false;
+        notifyListeners();
+      },
+      onError: (error) {
+        isLoading = false;
+        notifyListeners();
+      },
+    );
   }
 
   void changeDate(DateTime date) {
