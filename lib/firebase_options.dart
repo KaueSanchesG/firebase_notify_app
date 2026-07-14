@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '688614320745',
     projectId: 'fcm-flood-monitoring',
     authDomain: 'fcm-flood-monitoring.firebaseapp.com',
+    databaseURL: 'https://fcm-flood-monitoring-default-rtdb.firebaseio.com',
     storageBucket: 'fcm-flood-monitoring.firebasestorage.app',
     measurementId: 'G-2WE22J9Z28',
   );
@@ -55,23 +56,24 @@ class DefaultFirebaseOptions {
     appId: '1:688614320745:android:b6f42681323bde9d8fd0f8',
     messagingSenderId: '688614320745',
     projectId: 'fcm-flood-monitoring',
+    databaseURL: 'https://fcm-flood-monitoring-default-rtdb.firebaseio.com',
     storageBucket: 'fcm-flood-monitoring.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCZuveJCe6y-WENY8KsrebVo5RPVVmXXRo',
     appId: '1:688614320745:ios:df1b7736e579d87e8fd0f8',
     messagingSenderId: '688614320745',
     projectId: 'fcm-flood-monitoring',
+    databaseURL: 'https://fcm-flood-monitoring-default-rtdb.firebaseio.com',
     storageBucket: 'fcm-flood-monitoring.firebasestorage.app',
     iosBundleId: 'com.example.firebaseNotifyApp',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCZuveJCe6y-WENY8KsrebVo5RPVVmXXRo',
     appId: '1:688614320745:ios:df1b7736e579d87e8fd0f8',
     messagingSenderId: '688614320745',
     projectId: 'fcm-flood-monitoring',
+    databaseURL: 'https://fcm-flood-monitoring-default-rtdb.firebaseio.com',
     storageBucket: 'fcm-flood-monitoring.firebasestorage.app',
     iosBundleId: 'com.example.firebaseNotifyApp',
   );
@@ -82,6 +84,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '688614320745',
     projectId: 'fcm-flood-monitoring',
     authDomain: 'fcm-flood-monitoring.firebaseapp.com',
+    databaseURL: 'https://fcm-flood-monitoring-default-rtdb.firebaseio.com',
     storageBucket: 'fcm-flood-monitoring.firebasestorage.app',
     measurementId: 'G-M3N6E9E0XS',
   );
