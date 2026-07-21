@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_notify_app/data/repositories/point_forecasts/point_forecasts_repository.dart';
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final PointForecastsRepository _repository;
@@ -46,10 +46,15 @@ class HomeViewModel extends ChangeNotifier {
     );
   }
 
-  void changeDate(DateTime date) {
-    if (_selectedDate != date) {
-      _selectedDate = date;
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 90)),
+    );
 
+    if (picked != null) {
+      _selectedDate = picked;
       notifyListeners();
     }
   }
