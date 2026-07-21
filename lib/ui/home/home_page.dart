@@ -95,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                     point: point.coordinates,
                     useRadiusInMeter: true,
                     radius: 2500,
+                    color: Colors.black54,
                   );
                 }).toList(),
               ),
