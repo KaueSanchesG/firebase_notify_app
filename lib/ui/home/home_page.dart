@@ -1,5 +1,8 @@
 import 'package:firebase_notify_app/config/injection.dart';
+import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
 import 'package:firebase_notify_app/ui/home/home_view_model.dart';
+import 'package:firebase_notify_app/ui/home/widgets/bottom_panel.dart';
+import 'package:firebase_notify_app/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:intl/intl.dart';
@@ -45,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                     size: 18,
                   ),
                   label: Text(
-                    DateFormat('dd/MM/yyyy').format(widget.vm.selectedDate),
+                    DateFormatter.format(widget.vm.selectedDate),
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -69,36 +72,65 @@ class _HomePageState extends State<HomePage> {
             return const Text('Algo deu errado');
           }
 
-          return FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              initialCenter: LatLng(-25.50014516958931, -54.57859013732984),
-              initialZoom: 12.0,
-              cameraConstraint: CameraConstraint.contain(
-                bounds: LatLngBounds(
-                  LatLng(-25.73819746091608, -54.8761170313288),
-                  LatLng(-25.28229443826649, -54.39352841706497),
-                ),
-              ),
-            ),
+          final LayerHitNotifier<PointForecastsData> hitNotifier =
+              ValueNotifier(null);
+
+          return Stack(
             children: [
-              TileLayer(
-                urlTemplate:
-                    'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-                subdomains: const ['a', 'b', 'c', 'd'],
-                userAgentPackageName: 'firebase_notify_app',
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: LatLng(-25.50014516958931, -54.57859013732984),
+                  initialZoom: 12.0,
+                  cameraConstraint: CameraConstraint.contain(
+                    bounds: LatLngBounds(
+                      const LatLng(-26.09520863582746, -55.05781652233589),
+                      const LatLng(-25.26203083440155, -54.18796573265973),
+                    ),
+                  ),
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+                    subdomains: const ['a', 'b', 'c', 'd'],
+                    userAgentPackageName: 'firebase_notify_app',
+                  ),
+                  MouseRegion(
+                    hitTestBehavior: HitTestBehavior.deferToChild,
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        final LayerHitResult<PointForecastsData>? hitResult =
+                            hitNotifier.value;
+                        if (hitResult == null) return;
+
+                        setState(() {
+                          widget.vm.clickedPoint = hitResult.hitValues.last;
+                        });
+                      },
+                      child: CircleLayer(
+                        circles: widget.vm.currentPoints.map((point) {
+                          return CircleMarker(
+                            key: ValueKey(point.pointId),
+                            point: point.coordinates,
+                            useRadiusInMeter: true,
+                            radius: 2500,
+                            color: Colors.black54,
+                            hitValue: point,
+                          );
+                        }).toList(),
+                        hitNotifier: hitNotifier,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              CircleLayer(
-                circles: widget.vm.currentPoints.map((point) {
-                  return CircleMarker(
-                    key: ValueKey(point.pointId),
-                    point: point.coordinates,
-                    useRadiusInMeter: true,
-                    radius: 2500,
-                    color: Colors.black54,
-                  );
-                }).toList(),
-              ),
+              if (widget.vm.clickedPoint != null)
+                BottomPanel(
+                  point: widget.vm.clickedPoint!,
+                  onClose: widget.vm.closeBottomPanel,
+                ),
             ],
           );
         },

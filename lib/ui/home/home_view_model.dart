@@ -9,6 +9,7 @@ class HomeViewModel extends ChangeNotifier {
   StreamSubscription? _subscription;
 
   List<PointForecastsData> _pointsCached = [];
+  PointForecastsData? clickedPoint;
 
   DateTime _selectedDate = DateTime.now();
 
@@ -55,8 +56,16 @@ class HomeViewModel extends ChangeNotifier {
 
     if (picked != null) {
       _selectedDate = picked;
+      clickedPoint = null;
+
       notifyListeners();
     }
+  }
+
+  void closeBottomPanel() {
+    clickedPoint = null;
+
+    notifyListeners();
   }
 
   @override
