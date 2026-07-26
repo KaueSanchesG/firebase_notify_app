@@ -1,7 +1,6 @@
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
 import 'package:firebase_notify_app/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class BottomPanel extends StatelessWidget {
   final PointForecastsData _point;

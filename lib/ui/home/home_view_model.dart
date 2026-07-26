@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_notify_app/data/repositories/point_forecasts/point_forecasts_repository.dart';
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
+import 'package:firebase_notify_app/ui/home/widgets/vertical_scale.dart';
+import 'package:firebase_notify_app/utils/math_formulas.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -33,6 +35,26 @@ class HomeViewModel extends ChangeNotifier {
     }).toList();
   }
 
+  Color getColor(PointForecastsData point) {
+    return VerticalScale.getColor(
+      MathFormulas.scaleValueOf(
+        point.historyData.max,
+        point.historyData.min,
+        point.historyData.avg,
+      ),
+      MathFormulas.scaleValueOf(
+        point.historyData.max,
+        point.historyData.min,
+        point.forecasts
+            .firstWhere(
+              (forecast) => forecast.date == _selectedDate,
+              orElse: () => point.forecasts.last,
+            )
+            .riverDischarge,
+      ),
+    );
+  }
+
   void _subListener() {
     _subscription = _repository.subPoints().listen(
       (receivedData) {
@@ -51,6 +73,7 @@ class HomeViewModel extends ChangeNotifier {
     final DateTime? picked = await showDatePicker(
       context: context,
       firstDate: DateTime.now(),
+      currentDate: _selectedDate,
       lastDate: DateTime.now().add(Duration(days: 90)),
     );
 

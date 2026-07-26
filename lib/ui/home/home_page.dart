@@ -5,7 +5,6 @@ import 'package:firebase_notify_app/ui/home/widgets/bottom_panel.dart';
 import 'package:firebase_notify_app/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -116,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                             point: point.coordinates,
                             useRadiusInMeter: true,
                             radius: 2500,
-                            color: Colors.black54,
+                            color: widget.vm.getColor(point),
                             hitValue: point,
                           );
                         }).toList(),
