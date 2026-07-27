@@ -117,6 +117,14 @@ class _HomePageState extends State<HomePage> {
                             radius: 2500,
                             color: widget.vm.getColor(point),
                             hitValue: point,
+                            borderStrokeWidth:
+                                widget.vm.clickedPoint?.pointId == point.pointId
+                                ? 3
+                                : 0,
+                            borderColor:
+                                widget.vm.clickedPoint?.pointId == point.pointId
+                                ? Colors.red
+                                : Colors.transparent,
                           );
                         }).toList(),
                         hitNotifier: hitNotifier,
