@@ -2,6 +2,7 @@ import 'package:firebase_notify_app/config/injection.dart';
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
 import 'package:firebase_notify_app/ui/home/home_view_model.dart';
 import 'package:firebase_notify_app/ui/home/widgets/bottom_panel.dart';
+import 'package:firebase_notify_app/ui/home/widgets/vertical_scale.dart';
 import 'package:firebase_notify_app/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -133,11 +134,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              if (widget.vm.clickedPoint != null)
+
+              if (widget.vm.clickedPoint != null) ...[
+                widget.vm.getVerticalScale(point: widget.vm.clickedPoint!),
                 BottomPanel(
                   point: widget.vm.clickedPoint!,
                   onClose: widget.vm.closeBottomPanel,
                 ),
+              ] else ...[
+                widget.vm.getVerticalScale(),
+              ],
             ],
           );
         },

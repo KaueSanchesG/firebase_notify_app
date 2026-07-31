@@ -55,6 +55,27 @@ class HomeViewModel extends ChangeNotifier {
     );
   }
 
+  Widget getVerticalScale({PointForecastsData? point}) {
+    return Positioned(
+      top: 100,
+      left: 5,
+      child: point != null
+          ? VerticalScale(
+              avgValue: MathFormulas.scaleValueOf(
+                point.historyData.max,
+                point.historyData.min,
+                point.historyData.avg,
+              ),
+              rtValue: MathFormulas.scaleValueOf(
+                point.historyData.max,
+                point.historyData.min,
+                point.forecasts[0].riverDischarge,
+              ),
+            )
+          : VerticalScale(),
+    );
+  }
+
   void _subListener() {
     _subscription = _repository.subPoints().listen(
       (receivedData) {
