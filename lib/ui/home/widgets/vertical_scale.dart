@@ -25,13 +25,16 @@ class VerticalScale extends StatelessWidget {
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
           colors: [_minColor, _avgColor, _warningColor, _maxColor],
-          // avaliar se não vale a pena colocar os valores de min e max clamp no stops
           stops: [0.0, avgValueClampped, warningValue, 1.0],
         ),
       ),
       child: Align(
         alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
-        child: Divider(thickness: 2, color: Colors.blueGrey.shade600),
+        child: Divider(
+          height: 2,
+          thickness: 2,
+          color: Colors.blueGrey.shade600,
+        ),
       ),
     );
   }
