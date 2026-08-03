@@ -1,9 +1,13 @@
+import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
 import 'package:flutter/material.dart';
 
 class VerticalScale extends StatelessWidget {
   final double avgValue;
   final double rtValue;
 
+  //final VerticalScaleValues pointValues;
+
+  // adicionar parametro opc de pointValues aqui, transformat os valores com MathFormular.scaleOf() e passar os parâmetros aos metodos
   const VerticalScale({super.key, this.avgValue = 0.25, this.rtValue = 0.0});
 
   static final _minColor = Color.fromRGBO(33, 149, 243, 1);
