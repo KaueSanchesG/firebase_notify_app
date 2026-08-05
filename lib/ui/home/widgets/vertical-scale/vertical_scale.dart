@@ -1,14 +1,14 @@
 import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
+import 'package:firebase_notify_app/utils/math_formulas.dart';
 import 'package:flutter/material.dart';
 
 class VerticalScale extends StatelessWidget {
-  final double avgValue;
-  final double rtValue;
+  final VerticalScaleValues pointValues;
 
-  //final VerticalScaleValues pointValues;
-
-  // adicionar parametro opc de pointValues aqui, transformat os valores com MathFormular.scaleOf() e passar os parâmetros aos metodos
-  const VerticalScale({super.key, this.avgValue = 0.25, this.rtValue = 0.0});
+  const VerticalScale({
+    super.key,
+    this.pointValues = const VerticalScaleValues(),
+  });
 
   static final _minColor = Color.fromRGBO(33, 149, 243, 1);
   static final _avgColor = Color.fromRGBO(76, 175, 80, 1);
@@ -17,6 +17,22 @@ class VerticalScale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double avgValue = 25.0;
+    double rtValue = 0.0;
+
+    if (pointValues.maxValue != 0.0) {
+      avgValue = MathFormulas.scaleValueOf(
+        pointValues.maxValue,
+        pointValues.minValue,
+        pointValues.avgValue,
+      );
+      rtValue = MathFormulas.scaleValueOf(
+        pointValues.maxValue,
+        pointValues.minValue,
+        pointValues.rtValue,
+      );
+    }
+
     final double avgValueClampped = avgValue.clamp(0.0, 1.0);
 
     final double warningValue = avgValueClampped * 3;
@@ -64,7 +80,7 @@ class VerticalScale extends StatelessWidget {
       result = (curtClampped - avgClampped) / (warningValue - avgClampped);
       return Color.lerp(_avgColor, _warningColor, result) ?? _avgColor;
     } else {
-      result = (curtClampped - avgClampped) / (100.0 - avgClampped);
+      result = (curtClampped - warningValue) / (100.0 - avgClampped);
       return Color.lerp(_warningColor, _maxColor, result) ?? _warningColor;
     }
   }

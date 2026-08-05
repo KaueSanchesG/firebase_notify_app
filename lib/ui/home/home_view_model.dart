@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_notify_app/data/repositories/point_forecasts/point_forecasts_repository.dart';
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
+import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
 import 'package:firebase_notify_app/ui/home/widgets/vertical-scale/vertical_scale.dart';
 import 'package:firebase_notify_app/utils/math_formulas.dart';
 import 'package:flutter/material.dart';
@@ -56,23 +57,16 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Widget getVerticalScale({PointForecastsData? point}) {
+    VerticalScaleValues pointValues = VerticalScaleValues();
+
+    if (point != null) {
+      pointValues = point.toScaleValues(_selectedDate);
+    }
+
     return Positioned(
       top: 100,
       left: 5,
-      child: point != null
-          ? VerticalScale(
-              avgValue: MathFormulas.scaleValueOf(
-                point.historyData.max,
-                point.historyData.min,
-                point.historyData.avg,
-              ),
-              rtValue: MathFormulas.scaleValueOf(
-                point.historyData.max,
-                point.historyData.min,
-                point.forecasts[0].riverDischarge,
-              ),
-            )
-          : VerticalScale(),
+      child: VerticalScale(pointValues: pointValues),
     );
   }
 

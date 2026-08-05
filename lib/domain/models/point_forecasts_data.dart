@@ -1,5 +1,6 @@
 import 'package:firebase_notify_app/domain/models/forecast.dart';
 import 'package:firebase_notify_app/domain/models/history_data.dart';
+import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
 import 'package:latlong2/latlong.dart';
 
 class PointForecastsData {
@@ -39,6 +40,20 @@ class PointForecastsData {
       coordinates: coordinates ?? this.coordinates,
       historyData: historyData ?? this.historyData,
       forecasts: forecasts ?? this.forecasts,
+    );
+  }
+
+  VerticalScaleValues toScaleValues(DateTime currentDate) {
+    return VerticalScaleValues(
+      maxValue: historyData.max,
+      minValue: historyData.min,
+      avgValue: historyData.avg,
+      rtValue: forecasts
+          .firstWhere(
+            (forecastMap) => forecastMap.date == currentDate,
+            orElse: () => forecasts.last,
+          )
+          .riverDischarge,
     );
   }
 }
