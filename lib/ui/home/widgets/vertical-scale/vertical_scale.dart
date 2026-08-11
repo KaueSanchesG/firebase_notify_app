@@ -62,19 +62,18 @@ class VerticalScale extends StatelessWidget {
         SizedBox(
           //width: 60,
           height: 350,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
               Align(
                 alignment: Alignment.topCenter,
                 child: Text("- ${pointValues.maxValue} m³/s"),
               ),
               Align(
-                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
+                alignment: Alignment(0.0, (1.0 - warningValue)),
                 child: Text("- ${pointValues.rtValue * 2} m³/s"),
               ),
               Align(
-                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
+                alignment: Alignment(0.0, (1.0 - rtValue)),
                 child: Text("- ${pointValues.rtValue} m³/s"),
               ),
               Align(
