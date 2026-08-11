@@ -37,25 +37,54 @@ class VerticalScale extends StatelessWidget {
 
     final double warningValue = avgValueClampped * 3;
 
-    return Container(
-      width: 40,
-      height: 350,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [_minColor, _avgColor, _warningColor, _maxColor],
-          stops: [0.0, avgValueClampped, warningValue, 1.0],
+    return Row(
+      children: [
+        Container(
+          width: 40,
+          height: 350,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [_minColor, _avgColor, _warningColor, _maxColor],
+              stops: [0.0, avgValueClampped, warningValue, 1.0],
+            ),
+          ),
+          child: Align(
+            alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
+            child: Divider(
+              height: 2,
+              thickness: 2,
+              color: Colors.blueGrey.shade600,
+            ),
+          ),
         ),
-      ),
-      child: Align(
-        alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
-        child: Divider(
-          height: 2,
-          thickness: 2,
-          color: Colors.blueGrey.shade600,
+        SizedBox(
+          //width: 60,
+          height: 350,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text("- ${pointValues.maxValue} m³/s"),
+              ),
+              Align(
+                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
+                child: Text("- ${pointValues.rtValue * 2} m³/s"),
+              ),
+              Align(
+                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
+                child: Text("- ${pointValues.rtValue} m³/s"),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text("- ${pointValues.minValue} m³/s"),
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
