@@ -63,17 +63,18 @@ class VerticalScale extends StatelessWidget {
           //width: 60,
           height: 350,
           child: Stack(
+            clipBehavior: Clip.none,
             children: [
               Align(
                 alignment: Alignment.topCenter,
                 child: Text("- ${pointValues.maxValue} m³/s"),
               ),
               Align(
-                alignment: Alignment(0.0, (1.0 - warningValue)),
-                child: Text("- ${pointValues.rtValue * 2} m³/s"),
+                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
+                child: Text("- ${pointValues.avgValue * 2} m³/s"),
               ),
               Align(
-                alignment: Alignment(0.0, (1.0 - rtValue)),
+                alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
                 child: Text("- ${pointValues.rtValue} m³/s"),
               ),
               Align(
