@@ -51,6 +51,7 @@ dependencies:
   cloud_firestore: ^6.6.0
   google_fonts: ^8.2.0
   firebase_app_check: ^0.4.5+2
+  syncfusion_flutter_gauges: ^34.2.3
 
 dev_dependencies:
   flutter_test:

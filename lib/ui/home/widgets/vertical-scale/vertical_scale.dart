@@ -1,6 +1,7 @@
 import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
 import 'package:firebase_notify_app/utils/math_formulas.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class VerticalScale extends StatelessWidget {
   final VerticalScaleValues pointValues;
@@ -35,57 +36,82 @@ class VerticalScale extends StatelessWidget {
 
     final double avgValueClampped = avgValue.clamp(0.0, 1.0);
 
-    final double warningValue = avgValueClampped * 3;
+    final double warningValue = avgValue * 3;
 
-    return Row(
-      children: [
-        Container(
-          width: 40,
-          height: 350,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
+    var sfLinearGauge = SfLinearGauge(
+      orientation: LinearGaugeOrientation.vertical,
+      minimum: 0.0,
+      maximum: 1.0,
+      showTicks: false,
+      //showLabels: false,
+      axisTrackStyle: const LinearAxisTrackStyle(thickness: 15),
+      labelFormatterCallback: (String label) {
+        final double? labelValue = double.tryParse(label);
+        if (labelValue == null) return '';
+
+        bool isCloseTo(double target) => (labelValue - target).abs() < 0.05;
+
+        if (isCloseTo(0.0)) {
+          return pointValues.minValue.toStringAsFixed(1);
+        }
+
+        if (isCloseTo(1.0)) {
+          return pointValues.maxValue.toStringAsFixed(1);
+        }
+
+        if (isCloseTo(avgValueClampped)) {
+          return pointValues.avgValue.toStringAsFixed(1);
+        }
+
+        if (isCloseTo(warningValue)) {
+          return (pointValues.avgValue * 3).toStringAsFixed(1);
+        }
+
+        return '';
+      },
+      ranges: [
+        LinearGaugeRange(
+          startValue: 0.0,
+          endValue: 1.0,
+          startWidth: 15,
+          endWidth: 15,
+          edgeStyle: LinearEdgeStyle.bothCurve,
+          position: LinearElementPosition.cross,
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [_minColor, _avgColor, _warningColor, _maxColor],
               stops: [0.0, avgValueClampped, warningValue, 1.0],
-            ),
-          ),
-          child: Align(
-            alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
-            child: Divider(
-              height: 2,
-              thickness: 2,
-              color: Colors.blueGrey.shade600,
-            ),
+            ).createShader(bounds);
+          },
+        ),
+      ],
+      markerPointers: [
+        LinearWidgetPointer(
+          value: rtValue,
+          position: LinearElementPosition.cross,
+          child: Container(
+            height: 2,
+            width: 15,
+            color: Colors.blueGrey.shade900,
           ),
         ),
-        SizedBox(
-          //width: 60,
-          height: 350,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text("- ${pointValues.maxValue} m³/s"),
-              ),
-              Align(
-                alignment: Alignment(0.0, (1.0 - (warningValue * 2))),
-                child: Text("- ${pointValues.avgValue * 2} m³/s"),
-              ),
-              Align(
-                alignment: Alignment(0.0, (1.0 - (rtValue * 2))),
-                child: Text("- ${pointValues.rtValue} m³/s"),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text("- ${pointValues.minValue} m³/s"),
-              ),
-            ],
+        LinearWidgetPointer(
+          value: rtValue,
+          position: LinearElementPosition.inside,
+          offset: 12.0,
+          child: Text(
+            "${pointValues.rtValue} m³/s",
+            style: TextStyle(
+              color: Colors.blueGrey.shade900,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
     );
+    return sfLinearGauge;
   }
 
   static Color getColor(double avgValue, double curtValue) {

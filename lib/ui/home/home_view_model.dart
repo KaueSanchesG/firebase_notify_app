@@ -64,8 +64,8 @@ class HomeViewModel extends ChangeNotifier {
     }
 
     return Positioned(
-      top: 100,
-      left: 5,
+      top: 60,
+      left: 10,
       child: VerticalScale(pointValues: pointValues),
     );
   }
