@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_notify_app/data/repositories/point_forecasts/point_forecasts_repository.dart';
 import 'package:firebase_notify_app/domain/models/point_forecasts_data.dart';
 import 'package:firebase_notify_app/domain/models/vertical_scale_values.dart';
-import 'package:firebase_notify_app/ui/home/widgets/vertical-scale/vertical_scale.dart';
+import 'package:firebase_notify_app/ui/home/widgets/vertical_scale.dart';
 import 'package:firebase_notify_app/utils/math_formulas.dart';
 import 'package:flutter/material.dart';
 
