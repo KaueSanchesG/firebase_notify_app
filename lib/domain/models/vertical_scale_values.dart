@@ -8,6 +8,6 @@ class VerticalScaleValues {
     this.maxValue = 1.0,
     this.minValue = 0.0,
     this.avgValue = 0.25,
-    this.rtValue = 0.0,
+    this.rtValue = -1.0,
   });
 }

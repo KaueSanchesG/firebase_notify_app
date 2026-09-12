@@ -43,7 +43,6 @@ class VerticalScale extends StatelessWidget {
       minimum: 0.0,
       maximum: 1.0,
       showTicks: false,
-      //showLabels: false,
       axisTrackStyle: const LinearAxisTrackStyle(thickness: 15),
       labelFormatterCallback: (String label) {
         final double? labelValue = double.tryParse(label);
@@ -75,7 +74,7 @@ class VerticalScale extends StatelessWidget {
           endValue: 1.0,
           startWidth: 15,
           endWidth: 15,
-          edgeStyle: LinearEdgeStyle.bothCurve,
+          edgeStyle: LinearEdgeStyle.bothFlat,
           position: LinearElementPosition.cross,
           shaderCallback: (Rect bounds) {
             return LinearGradient(
@@ -87,7 +86,17 @@ class VerticalScale extends StatelessWidget {
           },
         ),
       ],
-      markerPointers: [
+      markerPointers: plotPointersWhenNotDefault(rtValue, pointValues.rtValue),
+    );
+    return sfLinearGauge;
+  }
+
+  List<LinearWidgetPointer>? plotPointersWhenNotDefault(
+    double rtValue,
+    double pRtValue,
+  ) {
+    if (rtValue != -1.0) {
+      return [
         LinearWidgetPointer(
           value: rtValue,
           position: LinearElementPosition.cross,
@@ -102,16 +111,16 @@ class VerticalScale extends StatelessWidget {
           position: LinearElementPosition.inside,
           offset: 12.0,
           child: Text(
-            "${pointValues.rtValue} m³/s",
+            "$pRtValue m³/s",
             style: TextStyle(
               color: Colors.blueGrey.shade900,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-      ],
-    );
-    return sfLinearGauge;
+      ];
+    }
+    return null;
   }
 
   static Color getColor(double avgValue, double curtValue) {
