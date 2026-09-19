@@ -44,6 +44,7 @@ class VerticalScale extends StatelessWidget {
       maximum: 1.0,
       showTicks: false,
       axisTrackStyle: const LinearAxisTrackStyle(thickness: 15),
+      showLabels: rtValue != -1 ? true : false,
       labelFormatterCallback: (String label) {
         final double? labelValue = double.tryParse(label);
         if (labelValue == null) return '';
